@@ -1,0 +1,11 @@
+import numpy as np
+sales_data = np.array([    [150, 200, 250, 300, 400, 350, 500], [120, 180, 210, 240, 310, 280, 400],[100, 130, 190, 220, 300, 270, 350],[80,  90,  150, 180, 240, 220, 300],[50,  60,  80,  100, 130, 120, 180]])
+print("the shape of the sales_data array.:",np.shape(sales_data))
+print("the number of dimensions in the sales_data array:",np.ndim(sales_data))
+print("the total number of elements in the sales_data array.:",np.size(sales_data))
+print("the data type of elements stored in the sales_data array:",sales_data.dtype)
+print("the total memory (in bytes) used by the sales_data array:",sales_data.dtype*sales_data.size,)
+print("Product 3 on Day 4.:",(sales_data[2,3]))
+print("All sales data for Product 1.:",sales_data[0])
+print("Sales data for the last 2 days.:",(sales_data[:,-2:]))
+print("Transpose the array so that rows represent days and columns represent products.:",np.transpose(sales_data))
