@@ -1,0 +1,57 @@
+import pandas as pd
+import numpy as np
+data = {
+    "Match 1": [45, 60, 20, 80, 55],
+    "Match 2": [30, 50, 40, 90, 65],
+    "Match 3": [70, 20, 35, 60, 40],
+    "Match 4": [25, 45, 15, 100, 75],
+}
+players = ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5"]
+performance = pd.DataFrame(data, index=players)
+print(performance)
+print(" the first three rows of the performance DataFrame.",performance.head(3))
+# print("the number of players:",performance.count(), "\n number of matches recorded",performance.nunique())
+num_players, num_matches = performance.shape
+print(f"Number of players: {num_players} \nNumber of matches: {num_matches}")
+match_names=performance.columns.tolist()
+player_names=performance.index.tolist()
+print(f"the match names :{match_names} \nplayer names:{player_names}")
+print("the data type of the elements in the DataFrame.",performance.dtypes)
+print("if there are any missing values in the DataFrame.",performance.isnull().sum().sum())
+print("the scores of 'Player 4' across all matches.:",performance.loc["Player 4"])
+print("the scores of all players in 'Match 2' ",performance["Match 2"])
+print("the scores of 'Player 1' and 'Player 3' for 'Match 1' and 'Match 4' : ",performance.loc[["Player 1","Player 3"],["Match 1","Match 4"]])
+print("the sliced DataFrame to get the first 3 players and the first 2 matches.",performance.iloc[:3,:2])
+print("the score of 'Player 5' in 'Match 3' using .iloc:",performance.iloc[-1:,2:-1],"using loc",performance.loc["Player 5","Match 3"])
+p2m4a50=performance
+performance.loc["player 2","Match 4"]=50
+print("Update the score of 'Player 2' in 'Match 4' to 50.:",p2m4a50)
+p6=performance
+performance.loc["Player 6"]=[50, 40, 60, 70]
+print("Add a new player, 'Player 6', with scores [50, 40, 60, 70] in all matches.:",p6)
+a10=performance
+performance +=10
+print("Added 10 bonus runs to all scores in the DataFrame.",a10)
+print("")
+p3m5=performance
+performance.loc["Player 3"] -=5
+print("Deduct 5 runs from the scores of 'Player 3' in all matches.",p3m5)
+percent=(performance*120)/100
+print("the percentage contribution of each player’s score in a match, assuming the maximum possible score in each match is 120 runs.:",percent)
+playertrun=performance.sum(axis=1)
+print("the total runs scored by each player across all matches",playertrun) #for rows
+mtrun=performance.sum()
+print("the total runs scored in each match.:",mtrun)
+p_highest_trun=playertrun.max()
+print("the player with the highest total runs:",p_highest_trun)
+m_lowest_run=mtrun.min()
+print(" the match with the lowest total runs",m_lowest_run)
+pavg=performance.mean(axis=1)
+print("the average runs scored by each player across all matches.:",pavg)
+p_totalruns=performance
+performance["p_totalruns"]=playertrun
+print("Add a new column called 'Total Runs' that displays the total runs scored by each player.:",performance)
+psorted = performance.sort_values("p_totalruns", ascending = False)
+print("Sort the DataFrame by the 'Total Runs' column in descending order.:",psorted)
+pabove200 = performance[performance["p_totalruns"] > 200]
+print("the players who scored a total of more than 200 runs:",pabove200)
