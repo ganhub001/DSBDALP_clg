@@ -1,0 +1,24 @@
+import pandas as pd
+data=pd.read_csv("C:\\Users\\ASUS\\Downloads\\ODI_Match_Results.csv")
+print(data)
+print("view some of initials data :",data.head())
+print(" the number of rows and columns in the dataset using Pandas functions:",data.shape)
+print("missing values in the dataset using the isnull() function.,finding number of  missing columns",data.isnull().sum())
+print("summary statistics of the dataset using the describe() function:.",data.describe())
+print("List all the variable names and their data types.:",data.dtypes)
+
+
+for column in data.columns:
+    if data[column].dtype == 'object':
+        # Try converting to numeric, if possible
+        data[column] = pd.to_numeric(data[column], errors='coerce')
+        
+        # Check for non-numeric values (which are now NaNs)
+        if data[column].isna().sum() > 0:
+            print(f"Column '{column}' contains {data[column].isna().sum()} invalid entries after conversion.")
+        else:
+            print(f"Column '{column}' successfully converted to numeric.")
+
+# Final check of the data types after conversion
+print("\nData types after conversion:")
+print(data.dtypes)
