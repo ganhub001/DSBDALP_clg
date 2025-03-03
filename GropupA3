@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+df=pd.read_csv("C:\\Users\\ASUS\\Documents\\college\\dsbdal\\g3\\nutrition.csv")
+print(df)
+print(df.describe())
+
+num_col = df.select_dtypes(include=['number'])
+dt=num_col.copy()
+print(dt)
+mean_val=dt.mean(axis=0)
+mode_val=dt.median(axis=0)
+median_val=dt.mode(axis=0)
+print("\n mean of data\n",mean_val)
+print("\n median of data\n",mode_val)
+print("\n mode of data\n",median_val)
+grouped_protein_fiber =dt.groupby(['protein'])['fiber'].mean()
+print("\nGrouped protien fiber mean:\n", grouped_protein_fiber)
+print("\n max values \n ",dt.max(axis=0))
+print("\n min values \n ",dt.min(axis=0))
+print("\n std deviation \n",dt.std)
