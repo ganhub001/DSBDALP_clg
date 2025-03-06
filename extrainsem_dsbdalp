@@ -1,0 +1,107 @@
+import numpy as np
+import pandas as pd
+sales=np.array( [100, 200, 150, 300, 250, 400, 350])
+print(sales)
+sales_a=np.array([10, 20, 30])
+sales_b=np.array([1, 2, 3])
+
+print("element wise multiply of sales",sales_a*sales_b)
+print("sum of arrays elements wise",sales_a + sales_b)
+sales_january = np.array([300, 400])
+sales_february = np.array([500, 600])
+print("added two arrays in one array",np.concatenate((sales_january,sales_february)))
+
+
+scores = np.array([[80, 90], [85, 95]])
+print(scores)
+print(scores.reshape(-1))
+
+
+scores_stud = np.array([[85, 90, 78, 92, 88],[72, 75, 80, 68, 74],[95, 88, 92, 96, 90],[60, 65, 70, 58, 62],[88, 84, 86, 89, 87]])
+
+
+df=pd.DataFrame(scores_stud)
+df.index=["std1","std2","std3","std4","std5"]
+df.columns=["sub1","sub2","sub3","sub4","sub5"]
+print(df)
+print("the scores of Student 3 for all subjects.",df.loc["std3"])
+print("the scores for Subject 2 (column 2) across all students.",df.iloc[:,1])
+print("the scores of the first 3 students for the first 2 subjects",df.iloc[:3,:2])
+print("the scores of the last 2 students for the last 3 subjects.",df.iloc[3:,2:])
+a5=scores_stud.copy()
+a5 +=5
+print("5 bonus marks to all scores. ",a5)
+print(df)
+s10=df.iloc[:,3]
+s10 -=10
+print("")
+print("Subtract 10 marks from scores of Subject 4 for all students",s10)
+tm=np.sum(scores_stud,axis=0)
+print("total marks of each stud",tm)
+prcnt=(tm/500)*100
+print(".Calculate the percentage scores of each student assuming each subject is out of 100. ",prcnt)
+stdavg=np.mean(scores_stud,axis=0)
+print("Calculate the average score for each student across all subjects.",stdavg)
+print("the highest score in the entire array. ",np.max(scores_stud))
+print("e the average score for each subject.",np.mean(scores_stud,axis=1))
+print("the student with the lowest average score.",np.min(stdavg))
+
+
+
+#########INVENTORY#########
+
+import pandas as pd
+import numpy as np
+
+inv = np.array([
+   [100, 200, 150, 300],
+   [50, 60, 40, 80],    
+  [300, 400, 350, 500],
+   [200, 250, 220, 270],    [80, 90, 70, 100]])
+
+
+df=pd.DataFrame(inv)
+df.index=["p1","p2","p3","p4","p5"]
+df.columns=["loc1","loc2","loc3","loc4"]
+print(df)
+print("dimnesions of inv",df.ndim)
+print("he data type of elements in the array.",df.dtypes)
+print("the total memory (in bytes) used by the array:",df.dtypes*df.size)
+
+
+inv2=inv.copy()
+inv2 +=20
+print("add20",inv2)
+
+inv3=df.iloc[2:3]
+inv3 -=10
+
+print("Deduct 10 units of stock from Product 3 across all locations.",inv3)
+
+print("Double the stock of all products at Location 2 (column 2).",2*df.iloc[:,1:2])
+prcnt=(df/1000)*100
+print("Calculate the percentage of stock available for each product at all locations, assuming the maximum capacity of each location is 1000 units",prcnt)
+
+print("Calculate the total stock of each product across all locations",np.sum(inv,axis=1))
+
+print("etermine the total stock available in each location.",np.sum(inv,axis=0))
+t=np.sum(inv,axis=1)
+p=np.sum(inv,axis=0)
+print("Find the product with the maximum total stock across all locations.",np.max(t))
+print(" the location with the minimum total stock across all products.",np.min(p))
+print("he average stock per product across all locations.",np.mean(t))
+print("Calculate the total number of elements in the array",np.size(inv))
+print("4Retrieve the stock levels of Product 2 across all locations.",df.iloc[1:2,:])
+print("the stock levels for all products in Location 3",df.iloc[:,2:3])
+print("the stock levels of Products 3 and 4 for Locations 2 and 4.",df.iloc[[2,3], [1,3]])
+print("Extract the stock levels of the first 3 products for the first 2 locations.",df.iloc[:3,:2])
+print("Slice the stock levels of the last 2 products for the last 2 locations",df.iloc[3:,2:])
+print(" the stock of Product 5 at Location 3.",df.iloc[4:,2:3])
+print(" the stock of Product 5 at Location 3.",df.iloc[[4],[2]])
+print("the stock levels of Product 1 at Location 1 and Product 4 at Location 3.",df.iloc[[0],[0,3]])
+
+#update the stock of Product 2 at Location 4 to 100 units
+df2=df.copy()
+df2.iloc[[1],[3]]=100
+print("updated to 100",df2.iloc[[1],[3]])
+print(df.iloc[[1],[3]])
