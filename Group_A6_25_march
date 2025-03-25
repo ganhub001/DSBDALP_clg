@@ -1,0 +1,63 @@
+# Step 1: Import libraries with aliases
+import pandas as pd   # for data manipulation
+import numpy as np    # for numerical computation
+import matplotlib.pyplot as plt  # for visualization
+
+# Additional libraries for preprocessing, modeling, and evaluation:
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
+
+df=pd.read_excel("C:\\Users\\ASUS\\Documents\\college\\dsbdal\\g6\\diabetes.xlsx")
+print(df)
+
+# Step 3: Initialize the DataFrame (df is already loaded)
+print("First five rows of the Iris dataset:")
+print(df.head())
+
+# Step 4: Data Preprocessing
+
+# 4a. Convert categorical target ('Outcome') to numerical values
+le = LabelEncoder()
+df['Outcome'] = le.fit_transform(df['Outcome'])
+
+# 4b. Check for null values in the dataset
+print("\nNull values in each column:")
+print(df.isnull().sum())
+
+# 4c. Divide the dataset into independent (X) and dependent (y) variables
+# Here, attributes like  Pregnancies, Glucose,BloodPressure,  SkinThickness ,Insulin,BMI,DiabetesPedigreeFunction,Age  are features (X)
+# and the encoded 'OUtcome' is the target (y)
+X = df.drop('Outcome', axis=1)
+y = df['Outcome']
+
+# 4d. Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4e. Scale the features (Standardizing features often helps many algorithms)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Step 5: Train the model using Naive Bayes Algorithm
+gaussian = GaussianNB()
+gaussian.fit(X_train, y_train)
+
+# Step 6: Predict the target values for X_test
+y_pred = gaussian.predict(X_test)
+
+# Step 7: Evaluate model performance using accuracy, precision, and recall
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='micro')
+recall = recall_score(y_test, y_pred, average='micro')
+
+print("\nModel Evaluation Metrics:")
+print(f"Accuracy : {accuracy:.3f}")
+print(f"Precision: {precision:.3f}")
+print(f"Recall   : {recall:.3f}")
+
+# Step 8: Calculate and print the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+print("\nConfusion Matrix:")
+print(cm)
